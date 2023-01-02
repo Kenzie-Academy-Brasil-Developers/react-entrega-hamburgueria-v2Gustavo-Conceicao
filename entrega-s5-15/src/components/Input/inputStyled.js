@@ -1,10 +1,20 @@
 import styled from "styled-components";
+import InputForm from ".";
 
 
-export const InputStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    
+export const InputStyled = styled(InputForm)`   
+    fieldset{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    label {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
     input {
         max-width: 452px;
         height: 60px;
@@ -15,10 +25,12 @@ export const InputStyled = styled.div`
         font-size: 16px;
         font-weight: 400;
         color: #333333;
+        outline: none;
     }
 
-    input:focus{
-        outline: none;
-        box-shadow: 0 0 3px 0 #00000050;
+    p{
+        font-size: 12px;
+        font-weight: 400;
+        color: #E60000;
     }
 `

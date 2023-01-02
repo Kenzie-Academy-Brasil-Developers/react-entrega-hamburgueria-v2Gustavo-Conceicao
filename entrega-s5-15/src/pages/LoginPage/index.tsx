@@ -1,55 +1,97 @@
-import React from "react";
+import { useContext, useState } from "react";
 import { FormStyled } from "../../components/Form";
 import { Main } from "../../components/Main";
 import { SectionStyled } from "../../components/SectionNotForm";
-import { InputStyled } from "../../components/Input/inputStyled";
 import "../../style.css";
 import { SectionForm } from "../../components/SectionForm";
 import { DivPrimary } from "../../components/DivPrimary";
+import { useForm } from "react-hook-form";
+import { iLoginFormValues } from "./@types";
+import { UserContext } from "../../contexts/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginSchema } from "./loginSchema";
+import InputForm from "../../components/Input";
+import { LinkToRegister } from "../../components/LinkRegister";
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
+  const { userLogin } = useContext(UserContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iLoginFormValues>({
+    resolver: yupResolver(LoginSchema),
+  });
+
+  const submit = (data:iLoginFormValues) => {
+    console.log(userLogin)
+    userLogin(data, setLoading)
+  }
+
   return (
     <div>
-      <Main>
-        <SectionForm>
-          <FormStyled>
-            <div>
-              <h2>Login</h2>
-            </div>
-            <InputStyled>
-              <label htmlFor="">Nome</label>
-              <input type="text" placeholder="Digite aqui seu nome" />
-            </InputStyled>
-            <InputStyled>
-              <label htmlFor="">Email</label>
-              <input type="text" placeholder="Digite aqui seu email" />
-            </InputStyled>
-            <button>Cadastrar</button>
-            <span>
-              Crie sua conta para saborear muitas delícias e matar sua fome!
-            </span>
-            <button>Logar</button>
-          </FormStyled>
-        </SectionForm>
-        <SectionStyled>
-          <DivPrimary>
-            <img src="/Mask Group.svg" alt="iconLogo" />
-            <div>
-              <figure>
-                <img src="/shopping-bag.svg" alt="Icon Shop Cart" />
+      {loading ? (
+        <div>Carregando...</div>
+      ):(
+        <Main>
+          <SectionForm>
+            <FormStyled noValidate onSubmit={handleSubmit(submit, (errors) => {console.log(errors)})}>
+              <div>
+                <h2>Login</h2>
+              </div>
+              <InputForm
+                type="email"
+                id="email"
+                label="Email"
+                placeholder="Digite aqui seu email"
+                disabled={loading}
+                register={register("email")}
+                error={errors ? "Esse email já existe !" : ""}
+              />
+              <InputForm
+                type="password"
+                id="password"
+                label="Senha"
+                placeholder="Digite sua senha aqui"
+                disabled={loading}
+                register={register("password")}
+                error={errors ? "Senha incorreta !" : ""}
+              />
+              <button type="submit" disabled={loading}>
+                {loading ? "Entrando" : "Entrar"}
+              </button>
+              <span>
+                Crie sua conta para saborear muitas delícias e matar sua fome!
+              </span>
+              <LinkToRegister to="/register">Cadastrar</LinkToRegister>
+            </FormStyled>
+          </SectionForm>
+          <SectionStyled>
+            <DivPrimary>
+              <img src="/Mask Group.svg" alt="iconLogo" />
+              <div>
+                <figure className="figureShop">
+                  <img
+                    className="shop"
+                    src="/shopping-bag.svg"
+                    alt="Icon Shop Cart"
+                  />
+                </figure>
+                <p>
+                  A vida é como um sanduíche, é preciso recheá-la com os{" "}
+                  <span>melhores </span>
+                  ingredientes.
+                </p>
+              </div>
+              <figure className="figureDot">
+                <img src="/Group 135.png" alt="iconDot" />
               </figure>
-              <p>
-                A vida é como um sanduíche, é preciso recheá-la com os{" "}
-                <span>melhores </span>
-                ingredientes.
-              </p>
-            </div>
-            <figure className="figureDot">
-              <img src="/Group 135.png" alt="iconDot" />
-            </figure>
-          </DivPrimary>
-        </SectionStyled>
-      </Main>
+            </DivPrimary>
+          </SectionStyled>
+        </Main>
+      )}
     </div>
   );
 };

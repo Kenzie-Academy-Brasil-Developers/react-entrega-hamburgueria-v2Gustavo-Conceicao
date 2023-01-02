@@ -1,10 +1,8 @@
-import React from "react";
-import RoutesPage from "./components/Routes";
+import RoutesPage from "./Routes";
+import "./global.css"
 
 function App() {
-  return (
-    <RoutesPage/>
-  );
+  return <RoutesPage />;
 }
 
 export default App;

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const FormStyled = styled.form `
+export const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
     border: 2px solid #F5F5F5;
     border-radius: 5px;
     padding: 30px 25px;
     gap: 25px;
+    max-width: 380px;
     
     div:first-child {
         display: flex;
@@ -40,14 +41,19 @@ export const FormStyled = styled.form `
         max-width: 452px;
         border-radius: 8px;
         border: none;
-        background-color: #F5F5F5;
+        background-color: #219653;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
+        color: #ffffff;
     }
 
     button:hover {
-        background-color: #E0E0E050;
-        border: 2px solid #E0E0E0;
-        font-weight: 500;
+        /* background-color: #21965370; */
+        box-shadow: 0 0 15px #219653;
+        /* border: 2px solid #E0E0E0; */
+        font-weight: 700;
         box-shadow: 0 0 2px 0 #333333;
     }
     

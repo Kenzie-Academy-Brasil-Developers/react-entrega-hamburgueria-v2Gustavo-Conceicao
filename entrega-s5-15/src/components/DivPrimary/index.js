@@ -1,17 +1,12 @@
 import styled from "styled-components";
 
-export const DivPrimary = styled.div`
+export const DivPrimary = styled.div `
     width: 100%;
     max-width: 380px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 25px;
-    
-    img {
-        max-height: 55px;
-        min-width: 240px;
-    }
 
     div {
         width: 95%;
@@ -19,7 +14,6 @@ export const DivPrimary = styled.div`
         flex-direction: row;
         align-items: center;
         gap: 20px;
-        /* border: 1px solid #E0E0E0; */
         box-shadow: 0 0 3px 0 #00000050;
         padding: 10px 0;
         padding-left: 15px;
@@ -27,7 +21,7 @@ export const DivPrimary = styled.div`
         border-radius: 5px;
     }
 
-    div > figure {
+    .figureShop {
         height: 60px;
         width: 60px;
         padding: 18px;
@@ -35,10 +29,9 @@ export const DivPrimary = styled.div`
         background-color: #27AE6010;
     }
 
-    div > figure > img {
+    .shop {
         width: 25px;
         height: 25px;
-        object-fit: contain;
     }
 
     div > p {
@@ -48,8 +41,7 @@ export const DivPrimary = styled.div`
         color: #999999;
     }
 
-    figure {
+    .figureDot {
         height: 60px;
-        
     }
 `
