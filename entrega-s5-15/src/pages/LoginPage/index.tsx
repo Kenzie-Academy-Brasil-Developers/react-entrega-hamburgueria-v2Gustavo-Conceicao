@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "./loginSchema";
 import InputForm from "../../components/Input";
 import { LinkToRegister } from "../../components/LinkRegister";
+import { TitleForm } from "../../components/TitleForm";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,6 @@ const LoginPage = () => {
   });
 
   const submit = (data:iLoginFormValues) => {
-    console.log(userLogin)
     userLogin(data, setLoading)
   }
 
@@ -38,9 +38,9 @@ const LoginPage = () => {
         <Main>
           <SectionForm>
             <FormStyled noValidate onSubmit={handleSubmit(submit, (errors) => {console.log(errors)})}>
-              <div>
+              <TitleForm>
                 <h2>Login</h2>
-              </div>
+              </TitleForm>
               <InputForm
                 type="email"
                 id="email"
@@ -48,7 +48,7 @@ const LoginPage = () => {
                 placeholder="Digite aqui seu email"
                 disabled={loading}
                 register={register("email")}
-                error={errors ? "Esse email já existe !" : ""}
+                error={errors?.email ? "*Email incorreto !" : ""}
               />
               <InputForm
                 type="password"
@@ -57,7 +57,7 @@ const LoginPage = () => {
                 placeholder="Digite sua senha aqui"
                 disabled={loading}
                 register={register("password")}
-                error={errors ? "Senha incorreta !" : ""}
+                error={errors?.password ? "*Senha incorreta !" : ""}
               />
               <button type="submit" disabled={loading}>
                 {loading ? "Entrando" : "Entrar"}

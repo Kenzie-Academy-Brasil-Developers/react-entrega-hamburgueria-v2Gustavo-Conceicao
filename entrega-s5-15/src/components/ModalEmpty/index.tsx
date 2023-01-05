@@ -12,7 +12,7 @@ const EmptyModal = () => {
           <h3>Carrinho de compras</h3>
           <button onClick={() => setShowModalEmpty(false)}>X</button>
         </div>
-        <div className="mainModal">
+        <div className="mainModalEmpty">
             <span>Sua sacola está vazia</span>
             <span>Adicione itens</span>
         </div>

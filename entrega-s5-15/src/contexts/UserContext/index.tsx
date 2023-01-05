@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { iLoginFormValues } from "../../pages/LoginPage/@types";
 import { iRegisterFormValues } from "../../pages/RegisterPage/@types";
 import { api } from "../../services/api";
+import { iProduct } from "../CartContext/@types";
 import { iChildren, iUser, iUserLogin, iUserRegister } from "./@types";
 
 type userContextProps = {
@@ -10,6 +11,7 @@ type userContextProps = {
   userLogin: (formData: iLoginFormValues, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void
   user: iUser | null
   logout: () => void
+  products: iProduct[]
 }
 
 
@@ -17,6 +19,7 @@ const UserContext = createContext<userContextProps>({} as userContextProps);
 
 const UserProvider = ({ children }: iChildren) => {
   const [user, setUser] = useState<iUser | null>(null);
+  const [products, setProducts] = useState<iProduct[]>([] as iProduct[])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,16 +27,16 @@ const UserProvider = ({ children }: iChildren) => {
       const getToken = localStorage.getItem("@token");
         if(getToken){
           try {
-            const response = await api.get("/login", {
+            const response = await api.get("/products", {
               headers: {
                 Authorization : `Bearer ${getToken}`
               }   
             });
-            setUser(response.data);
+            setProducts(response.data);
+            navigate("/home")
           } catch (error) {
             console.log(error);
             localStorage.removeItem("@token");
-            localStorage.removeItem("@UserId");
             navigate("/");
           }
       } else {
@@ -44,7 +47,7 @@ const UserProvider = ({ children }: iChildren) => {
   }, []);
 
   const logout = () => {
-    setUser(null);
+    setProducts([]);
     localStorage.removeItem("@token");
   };
 
@@ -82,7 +85,7 @@ const UserProvider = ({ children }: iChildren) => {
 
 
   return (
-    <UserContext.Provider value={{ user, logout , userLogin, userRegister}}>
+    <UserContext.Provider value={{ user, logout , userLogin, userRegister, products}}>
       {children}
     </UserContext.Provider>
   );

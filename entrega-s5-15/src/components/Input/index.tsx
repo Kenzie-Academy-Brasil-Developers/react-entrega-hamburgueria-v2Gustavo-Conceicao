@@ -1,5 +1,6 @@
 import React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { InputStyled } from "./inputStyled";
 
 interface iInputProps {
     placeholder?: string;
@@ -13,11 +14,13 @@ interface iInputProps {
 
 const InputForm = ({type, id, label, placeholder, register, error , disabled}:iInputProps) => {
     return (
-        <fieldset>
-            {label && <label htmlFor={id}>{label}</label>}
-            <input type={type} id={id} placeholder={placeholder} {...register} disabled={disabled}/>
-            {error ? <p>{error}</p> : ""} 
-        </fieldset>  
+        <InputStyled>
+            <fieldset>
+                {label && <label htmlFor={id}>{label}</label>}
+                <input type={type} id={id} placeholder={placeholder} {...register} disabled={disabled}/>
+                {error ? <p>{error}</p> : ""} 
+            </fieldset>  
+        </InputStyled>
     )
 }
 

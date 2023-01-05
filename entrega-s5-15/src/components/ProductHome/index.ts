@@ -8,6 +8,10 @@ export const ProductsStyled = styled.li`
   padding-bottom: 10px;
   border-radius: 5px;
 
+  &:hover {
+    border: 2px solid #27ae60;
+  }
+
  figure {
   width: 100%;
   background-color: #f5f5f5;

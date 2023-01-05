@@ -11,6 +11,7 @@ import { RegisterSchema } from "./registerSchema";
 import InputForm from "../../components/Input";
 import { LinkToLogin } from "../../components/LinkLogin";
 import { iRegisterFormValues } from "./@types";
+import { TitleForm } from "../../components/TitleForm";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -54,10 +55,10 @@ const RegisterPage = () => {
           </SectionStyled>
           <SectionForm>
             <FormStyled noValidate onSubmit={handleSubmit(submit)}>
-              <div>
+              <TitleForm>
                 <h2>Cadastro</h2>
                 <LinkToLogin to="/">Retornar para o login</LinkToLogin>
-              </div>
+              </TitleForm>
               <InputForm
                 id="name"
                 type="text"
@@ -75,7 +76,7 @@ const RegisterPage = () => {
                 placeholder="Digite seu email aqui"
                 register={register("email")}
                 disabled={loading}
-                error={errors && "Esse email já existe !"}
+                error={errors?.email && "Esse email já existe !"}
               />
               <InputForm
                 id="password"
@@ -85,7 +86,7 @@ const RegisterPage = () => {
                 placeholder="Digite sua senha aqui"
                 register={register("password")}
                 disabled={loading}
-                error={errors ? "Digite uma senha melhor" : ""}
+                error={errors?.password ? "Digite uma senha melhor" : ""}
               />
               <InputForm
                 id="confirmPassword"
@@ -94,7 +95,8 @@ const RegisterPage = () => {
                 label="Confirme sua senha"
                 placeholder="Confirme sua senha"
                 disabled={loading}
-                error={errors ? "Digite uma senha melhor" : ""}
+                register={register("confirmPassword")}
+                error={errors?.confirmPassword ? "Digite uma senha melhor" : ""}
               />
               <button type="submit" disabled={loading}>
                 {loading ? "Cadastrando..." : "Cadastrar"}
@@ -103,7 +105,6 @@ const RegisterPage = () => {
           </SectionForm>
         </Main>
       )}
-      ;
     </>
   );
 };

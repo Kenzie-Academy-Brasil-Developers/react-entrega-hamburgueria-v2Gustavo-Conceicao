@@ -1,6 +1,7 @@
 // import { useState } from "react";
 import { useContext } from "react";
 import { ProductContext } from "../../contexts/CartContext";
+import { ButtonModal } from "../ButtonModal";
 import "./styles.css";
 
 const CartModal = () => {
@@ -64,7 +65,7 @@ const CartModal = () => {
               0
             )}`}</span>
           </div>
-          <button onClick={() => removeAll()}>Remover todos</button>
+          <ButtonModal onClick={() => removeAll()}>Remover todos</ButtonModal>
         </div>
       </div>
     </section>

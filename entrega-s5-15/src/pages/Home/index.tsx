@@ -1,6 +1,4 @@
-import { count } from "console";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Container } from "../../components/Container";
 import { DivInputHeaderStyled } from "../../components/DivInputHeader";
 import { FormHeaderStyled } from "../../components/FormHeader";
@@ -11,10 +9,12 @@ import EmptyModal from "../../components/ModalEmpty";
 import { ProductsStyled } from "../../components/ProductHome";
 import { SectionHomeStyled } from "../../components/SectionHome";
 import { ProductContext } from "../../contexts/CartContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const { products, productsResponse } = useContext(ProductContext);
+  const { products, logout } = useContext(UserContext);
+  const [searchProduct, setSearchProduct] = useState("")
   
   const {
     setShowModal,
@@ -23,16 +23,6 @@ const HomePage = () => {
     addProductCart,
     count,
   } = useContext(ProductContext);
-
-  const navigate = useNavigate();
-
-  const logout = () => {
-    navigate("/");
-  };
-
-  useEffect(() => {
-    productsResponse();
-  }, []);
 
   const openModal = () => {
     if (!productsSelected.length) {
@@ -68,7 +58,7 @@ const HomePage = () => {
                   className="iconLogout"
                   src="/.png"
                   alt="iconLogout"
-                  onClick={logout}
+                  onClick={() => logout()}
                 />
               </DivInputHeaderStyled>
             </Container>
